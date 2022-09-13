@@ -7,10 +7,11 @@ public class StickmanCharger : MonoBehaviour
     [SerializeField] private AlliedSpawner _spawner;
     [SerializeField] private Vector3 _localPointToSetPosition;
 
-    private StickmanAnimator _lastSpawned;
+    private GameObject _lastSpawned;
+    private GameObject _waitingForCharge;
     private StickmanLauncher _launcher;
 
-    public event UnityAction<StickmanAnimator> Charged;
+    public event UnityAction<GameObject> Charged;
 
     private void Awake()
     {
@@ -29,16 +30,22 @@ public class StickmanCharger : MonoBehaviour
         _spawner.Instantiated -= OnInstantiated;
     }
 
-    private void OnInstantiated(StickmanAnimator stickman)
+    private void OnInstantiated(GameObject stickman)
     {
         _lastSpawned = stickman;
+
+        if (_waitingForCharge == null)
+            _waitingForCharge = stickman;
     }
 
     private void OnLaunchSuccessfully()
     {
-        _lastSpawned.transform.SetParent(_launcher.transform);
-        _lastSpawned.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        _lastSpawned.transform.localPosition = _localPointToSetPosition;
-        Charged?.Invoke(_lastSpawned);
+        _waitingForCharge.transform.SetParent(_launcher.transform);
+        _waitingForCharge.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        _waitingForCharge.transform.localPosition = _localPointToSetPosition;
+
+        Charged?.Invoke(_waitingForCharge);
+
+        _waitingForCharge = _lastSpawned;
     }
 }

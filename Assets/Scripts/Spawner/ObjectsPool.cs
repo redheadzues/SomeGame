@@ -7,21 +7,21 @@ public class ObjectsPool : MonoBehaviour
     [SerializeField] private float _capacity;
     [SerializeField] private Transform _container;
 
-    private List<StickmanAnimator> _pool = new List<StickmanAnimator> ();
+    private List<GameObject> _pool = new List<GameObject> ();
 
-    protected void InitializePool(StickmanAnimator prefab)
+    protected void InitializePool(GameObject prefab)
     {
         for (int i = 0; i < _capacity; i++)
         {
             var spawned = Instantiate(prefab, _container);
             _pool.Add(spawned);
-            spawned.gameObject.SetActive(false);
+            spawned.SetActive(false);
         }
     }
 
-    protected bool TryGetObject(out StickmanAnimator exemplar)
+    protected bool TryGetObject(out GameObject exemplar)
     {
-        exemplar = _pool.FirstOrDefault(p => p.gameObject.activeSelf == false);
+        exemplar = _pool.FirstOrDefault(p => p.activeSelf == false);
 
         return exemplar != null;
     }

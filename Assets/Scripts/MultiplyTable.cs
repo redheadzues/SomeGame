@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class MultiplyTable : ObjectsPool
 {
-    [SerializeField] private StickmanFlightOperator _template;
+    [SerializeField] private GameObject _template;
     [SerializeField] private float _DuplicateOffsetX;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private StickmanFlightOperator _lastDuplicate;
 
-    private void Start()
+    private void Awake()
     {
         InitializePool(_template);
     }
@@ -17,15 +18,17 @@ public class MultiplyTable : ObjectsPool
         if (collision.collider.TryGetComponent<StickmanFlightOperator>(out StickmanFlightOperator flyOperator))
             if (flyOperator != _lastDuplicate)
             {
-                var collisionPoint = collision.contacts[0].point;
+                Vector3 collisionPoint = collision.contacts[0].point;
                 MultyplierStickman(flyOperator.Direction, collisionPoint);
+                _particleSystem.transform.position = collisionPoint;
+                _particleSystem.Play();
             }
                 
     }
 
     private void MultyplierStickman(Vector3 direction, Vector3 point)
     {
-        if(TryGetObject(out StickmanAnimator stickman))
+        if(TryGetObject(out GameObject stickman))
         {
             if(stickman.gameObject.TryGetComponent<StickmanFlightOperator>(out StickmanFlightOperator flyOperator))
             {

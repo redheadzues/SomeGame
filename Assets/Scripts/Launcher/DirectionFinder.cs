@@ -6,7 +6,6 @@ public abstract class DirectionFinder : MonoBehaviour
     [SerializeField] protected Transform _launcher;
 
     private const float _half = 0.5f;
-    private const float _zero = 0;
     
     protected void Initialize(Vector3 centerPoint, Transform launcher)
     {
@@ -20,6 +19,6 @@ public abstract class DirectionFinder : MonoBehaviour
         var offsetCenter = new Vector3(_centerPoint.x, _centerPoint.y, offsetCenterZ);
         var distance = offsetCenter - _launcher.position;
 
-        return new Vector3(distance.x, _zero, distance.z).normalized;
+        return new Vector3(distance.x, 0, distance.z).normalized;
     }
 }

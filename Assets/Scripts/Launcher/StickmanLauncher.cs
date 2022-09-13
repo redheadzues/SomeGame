@@ -35,9 +35,9 @@ public class StickmanLauncher : DirectionFinder
         _charger.Charged -= OnCharged;
     }
 
-    private void OnCharged(StickmanAnimator stickman)
+    private void OnCharged(GameObject stickman)
     {
-        if(stickman.gameObject.TryGetComponent<StickmanFlightOperator>(out StickmanFlightOperator flyOperator))
+        if(stickman.TryGetComponent(out StickmanFlightOperator flyOperator))
             _lastCharged = flyOperator;
     }
 

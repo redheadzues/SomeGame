@@ -3,10 +3,16 @@ using UnityEngine.Events;
 
 public class AlliedSpawner : ObjectsPool
 {
-    [SerializeField] private StickmanFlightOperator _template;
-    [SerializeField] protected StickmanLauncher _launcher;
+    [SerializeField] private GameObject _template;
+    [SerializeField] private StickmanLauncher _launcher;
+    [SerializeField] private Transform _startMovePosition;
 
-    public event UnityAction<StickmanAnimator> Instantiated;
+    public event UnityAction<GameObject> Instantiated;
+
+    private void Awake()
+    {
+        InitializePool(_template);
+    }
 
     private void OnEnable()
     {
@@ -15,7 +21,6 @@ public class AlliedSpawner : ObjectsPool
 
     private void Start()
     {
-        InitializePool(_template);
         Spawn();
     }
 
@@ -26,12 +31,22 @@ public class AlliedSpawner : ObjectsPool
 
     private void Spawn()
     {
-        if (TryGetObject(out StickmanAnimator stickman))
+        if (TryGetObject(out GameObject stickman))
         {
-            stickman.gameObject.SetActive(true);
+            if(stickman.TryGetComponent<StickmanAppearer>(out StickmanAppearer appearer))
+                appearer.SetTarget(_startMovePosition);
+
+            SetStickman(stickman);
             Instantiated?.Invoke(stickman);
         }
-    }    
+    }
+    
+    private void SetStickman(GameObject stickman)
+    {
+        stickman.transform.position = transform.position;
+        stickman.transform.rotation = Quaternion.Euler(Vector3.zero);
+        stickman.SetActive(true);
+    }
 
     private void OnLaunched()
     {

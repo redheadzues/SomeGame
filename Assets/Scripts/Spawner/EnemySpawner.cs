@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : ObjectsPool
 {
-    [SerializeField] private StickmanAnimator _template;
+    [SerializeField] private GameObject _template;
     [SerializeField] private float _spawntime;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private PathKeeper _pathKeeper;
@@ -16,14 +16,14 @@ public class EnemySpawner : ObjectsPool
 
     private void Spawn()
     {
-        if(TryGetObject(out StickmanAnimator stickman))
+        if(TryGetObject(out GameObject stickman))
         {
             stickman.transform.position = _spawnPoint.position;
             
-            if(stickman.gameObject.TryGetComponent<StickmanPathFollower>(out StickmanPathFollower follower))
+            if(stickman.TryGetComponent(out StickmanPathFollower follower))
                 follower.InitializePathKeeper(_pathKeeper);
 
-            stickman.gameObject.SetActive(true);
+            stickman.SetActive(true);
         }
     }
 

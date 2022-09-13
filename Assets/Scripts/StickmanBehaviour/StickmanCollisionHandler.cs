@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(StickmanFlightOperator))]
@@ -12,23 +10,24 @@ public class StickmanCollisionHandler : MonoBehaviour
         _operator = GetComponent<StickmanFlightOperator>();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if(other.TryGetComponent<StickmanPathFollower>(out StickmanPathFollower follower))
-        {
-            gameObject.SetActive(false);
-            follower.gameObject.SetActive(false);
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.TryGetComponent<Wall>(out Wall wall))
+        Vector3 collisionPoint = collision.contacts[0].point;
+
+        if (collision.collider.TryGetComponent(out Wall wall))
         {
-            var normal = collision.contacts[0].normal;
+            Vector3 normal = collision.contacts[0].normal;
             var reflect = Vector3.Reflect(_operator.Direction, normal);
             _operator.StartFlying(reflect);
         }
+
+        if (collision.collider.TryGetComponent(out EnemyCastleBreaker castle))
+            _operator.Die(collisionPoint);
+
+        if (collision.collider.TryGetComponent(out StickmanPathFollower follower))
+            _operator.Die(collisionPoint);
+
+        if (collision.collider.TryGetComponent(out Obstacle obstacle))
+            _operator.Die(collisionPoint);
     }
 }

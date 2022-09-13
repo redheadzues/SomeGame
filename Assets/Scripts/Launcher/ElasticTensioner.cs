@@ -12,7 +12,6 @@ public class ElasticTensioner : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-
     }
 
     private void OnMouseDown()

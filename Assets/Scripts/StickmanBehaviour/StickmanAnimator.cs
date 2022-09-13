@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class StickmanAnimator : MonoBehaviour
 {
     private Animator _animator;
-    private int _run = Animator.StringToHash("Run");
-    private int _idle = Animator.StringToHash("Idle");
+    private const string _run = "Run";
+    private const string _idle = "Idle";
+    private const string _fly = "Fly";
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
@@ -22,5 +21,10 @@ public class StickmanAnimator : MonoBehaviour
     protected void PlayIdle()
     {
         _animator.Play(_idle);
+    }
+
+    protected void PlayFly()
+    {
+        _animator.Play(_fly);
     }
 }

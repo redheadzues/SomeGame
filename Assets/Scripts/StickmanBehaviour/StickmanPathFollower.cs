@@ -38,7 +38,6 @@ public class StickmanPathFollower : StickmanAnimator
 
         for (int i = 0; i < _pathKeeper.transform.GetChild(currentWay).childCount; i++)
         {
-
             _wayPoints[i] = _pathKeeper.transform.GetChild(currentWay).GetChild(i);
         }
     }
@@ -82,7 +81,7 @@ public class StickmanPathFollower : StickmanAnimator
         if (_currentIndex == _wayPoints.Length - _one)
         {
             StopCoroutine(OnMove());
-            gameObject.SetActive(false);
+
         }
     }
 
