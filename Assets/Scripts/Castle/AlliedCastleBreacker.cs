@@ -9,4 +9,10 @@ public class AlliedCastleBreacker : CastleBreaker
             Destroy();
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+            Destroy();
+    }
 }

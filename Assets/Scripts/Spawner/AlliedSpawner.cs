@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-
 public class AlliedSpawner : ObjectsPool
 {
     [SerializeField] private GameObject _template;

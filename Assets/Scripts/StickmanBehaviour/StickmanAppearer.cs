@@ -7,10 +7,14 @@ public class StickmanAppearer : StickmanAnimator
     [SerializeField] private float _speed;
     [SerializeField] private float _coroutineDelay;
 
+    public bool IsCharged;
+
     private Coroutine _coroutine;
 
     private void OnEnable()
     {
+        IsCharged = false;
+
         if (_targetPosition != null)
             BeginCoroutine();            
     }
@@ -37,9 +41,9 @@ public class StickmanAppearer : StickmanAnimator
     {
         PlayRun();
 
-        while(transform.position != _targetPosition)
+        while((transform.position != _targetPosition) && (IsCharged == false))
         {
-            Move();
+            Move();            
 
             yield return new WaitForSeconds(_coroutineDelay);
         }

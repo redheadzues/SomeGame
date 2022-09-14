@@ -6,7 +6,6 @@ public class StickmanLauncher : DirectionFinder
 {
     [SerializeField] private ElasticTensioner _elasticTensioner;
     [SerializeField] private float _launchPoint;
-    [SerializeField] private StickmanFlightOperator _firstCharged;
 
     private StickmanFlightOperator _lastCharged;
     private StickmanCharger _charger;
@@ -26,7 +25,7 @@ public class StickmanLauncher : DirectionFinder
 
     private void Start()
     {
-        _lastCharged = _firstCharged;
+        Successfully?.Invoke();
     }
 
     private void OnDisable()
@@ -39,6 +38,10 @@ public class StickmanLauncher : DirectionFinder
     {
         if(stickman.TryGetComponent(out StickmanFlightOperator flyOperator))
             _lastCharged = flyOperator;
+
+        if (stickman.TryGetComponent(out StickmanAppearer appear))
+            appear.IsCharged = true;
+
     }
 
     private void OnDragFinished()
