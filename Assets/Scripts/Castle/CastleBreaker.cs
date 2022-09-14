@@ -9,6 +9,7 @@ public abstract class CastleBreaker : MonoBehaviour
     private int _currentPartIndex;
 
     public event Action<float, float> PartBreacked;
+    public event Action CastleBreacked;
 
     protected void Destroy()
     {
@@ -16,5 +17,13 @@ public abstract class CastleBreaker : MonoBehaviour
         _currentPartIndex++;
 
         PartBreacked?.Invoke(_parts.Count - _currentPartIndex, _parts.Count);
+
+        TryCompleteLevel();
+    }
+
+    private void TryCompleteLevel()
+    {
+        if (_currentPartIndex == _parts.Count)
+            CastleBreacked?.Invoke();
     }
 }
