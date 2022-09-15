@@ -10,7 +10,7 @@ public class StickmanFlightOperator : StickmanAnimator
     private Coroutine _coroutine;
     public Vector3 Direction { get; private set; }
 
-    private void OnValidate()
+    private void OnEnable()
     {
         _deathParticle = FindObjectOfType<SpawnerDeathParticle>();
     }

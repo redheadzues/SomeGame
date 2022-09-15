@@ -18,17 +18,11 @@ public class CastlePartBreaker : MonoBehaviour
         
     private void Start()
     {
+        _baseScale = transform.localScale;
         _rigidbody = GetComponent<Rigidbody>();
         _targetsSize = new List<Vector3>();
-        _baseScale = transform.localScale;
-        InitializeTargetsSizeList();
-    }
 
-    private void InitializeTargetsSizeList()
-    {
-        _targetsSize.Add(transform.localScale * _targetPercentResizeScale);
-        _targetsSize.Add(_baseScale);
-        _targetsSize.Add(Vector3.zero);
+        InitializeTargetsSizeList();
     }
 
     public void Activate()
@@ -36,6 +30,13 @@ public class CastlePartBreaker : MonoBehaviour
         RemoveKinematic();
         Move();
         StartCoroutine(OnDecrease());
+    }
+
+    private void InitializeTargetsSizeList()
+    {
+        _targetsSize.Add(transform.localScale * _targetPercentResizeScale);
+        _targetsSize.Add(_baseScale);
+        _targetsSize.Add(Vector3.zero);
     }
 
     private void RemoveKinematic()

@@ -42,7 +42,7 @@ public class StickmanCharger : MonoBehaviour
     {
         _waitingForCharge.transform.SetParent(_launcher.transform);
         _waitingForCharge.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        _waitingForCharge.transform.localPosition = _localPointToSetPosition;
+        _waitingForCharge.transform.localPosition = _localPointToSetPosition;                
 
         Charged?.Invoke(_waitingForCharge);
 

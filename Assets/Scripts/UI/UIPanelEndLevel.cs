@@ -58,9 +58,7 @@ public class UIPanelEndLevel : MonoBehaviour
 
     private void OnNextButtonClick()
     {
-        _sceneSwitcher.ReloadScene();
-        Time.timeScale = 1;
-        gameObject.SetActive(false);
+
     }
 
     private void OnRetryButtonClick()

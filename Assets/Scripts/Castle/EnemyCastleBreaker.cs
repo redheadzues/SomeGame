@@ -9,4 +9,10 @@ public class EnemyCastleBreaker : CastleBreaker
             Destroy();
         }
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+            Destroy();
+    }
 }
