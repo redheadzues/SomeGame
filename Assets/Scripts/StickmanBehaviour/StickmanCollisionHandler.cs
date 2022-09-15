@@ -18,7 +18,8 @@ public class StickmanCollisionHandler : MonoBehaviour
         {
             Vector3 normal = collision.contacts[0].normal;
             var reflect = Vector3.Reflect(_operator.Direction, normal);
-            _operator.StartFlying(reflect);
+            Vector3 direction = new Vector3(reflect.x, 0, reflect.z).normalized;
+            _operator.StartFlying(direction);
         }
 
         if (collision.collider.TryGetComponent(out EnemyCastleBreaker castle))

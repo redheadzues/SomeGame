@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class DeskLifter : MonoBehaviour
 {
-    [SerializeField] private float _timeToHoldOnPosition;
     [SerializeField] private float _coroutineDelay;
     [SerializeField] private float _positionVerticalMax;
     [SerializeField] private float _positionVerticalStayClosed;
     [SerializeField] private float _positionVerticalStayOpened;
     [SerializeField] private float _speed;
+    [SerializeField] private int _currentTargetIndex;
 
     private Vector3 _target;
     private List<float> _targets;
-    private int _currentTargetIndex;
     private int _aviodLimitException = 1;
 
     private void Awake()
@@ -55,7 +54,6 @@ public class DeskLifter : MonoBehaviour
 
     private IEnumerator OnMove()
     {
-        var holdPositionTime = new WaitForSeconds(_timeToHoldOnPosition);
         var delay = new WaitForSeconds(_coroutineDelay);
 
         while(true)

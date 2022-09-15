@@ -4,10 +4,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody))]
 public class ElasticTensioner : MonoBehaviour
 {
-    [SerializeField] private float _minPointX;
-    [SerializeField] private float _maxPointX;
-    [SerializeField] private float _minPointZ;
-    [SerializeField] private float _maxPointZ;
+    private float _minPointX = -4;
+    private float _maxPointX = 3;
+    private float _minPointZ = -27;
+    private float _maxPointZ = -20;
 
 
     private Rigidbody _rigidbody;

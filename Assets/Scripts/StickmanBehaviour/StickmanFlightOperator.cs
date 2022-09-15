@@ -27,7 +27,9 @@ public class StickmanFlightOperator : StickmanAnimator
 
     public void Die(Vector3 point)
     {
-        _deathParticle.SetParticle(point);
+        if(_deathParticle != null)
+            _deathParticle.SetParticle(point);
+
         gameObject.SetActive(false);
     }
 

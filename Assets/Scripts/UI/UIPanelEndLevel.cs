@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class UIPanelEndLevel : MonoBehaviour
 {
     [SerializeField] private Image _imageResult;
@@ -14,16 +13,12 @@ public class UIPanelEndLevel : MonoBehaviour
     [SerializeField] private Button _buttonRetry;
     [SerializeField] private int _winReward;
     [SerializeField] private int _defeatReward;
-    [SerializeField] private SceneSwitcher _sceneSwitcher;
 
 
     private const string c_Win = "Win";
     private const string c_Defeat = "Defeat";
 
-    private void OnValidate()
-    {
-        _sceneSwitcher = FindObjectOfType<SceneSwitcher>();
-    }
+
 
     private void OnEnable()
     {
@@ -58,12 +53,14 @@ public class UIPanelEndLevel : MonoBehaviour
 
     private void OnNextButtonClick()
     {
-
+        SceneLoader.LoadNextScene();
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
     }
 
     private void OnRetryButtonClick()
     {
-        _sceneSwitcher.ReloadScene();
+        SceneLoader.ReloadScene();
         Time.timeScale = 1;
         gameObject.SetActive(false);
     }
